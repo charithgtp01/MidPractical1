@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="listItemContentLeftMargin">16dp</dimen>
+    <dimen name="cardViewElevation">10dp</dimen>
+    <dimen name="cardViewCornerRadius">10dp</dimen>
+    <dimen name="itemMargin">6dp</dimen>
+    <dimen name="iconWidth">100dp</dimen>
+    <dimen name="itemHeight">65dp</dimen>
+    <dimen name="itemBgMargin">4dp</dimen>
+</resources>
