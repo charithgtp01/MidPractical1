@@ -26,8 +26,11 @@ internal class CountryAdapter(
         holder.tvName.text = country.name
         holder.icon.setImageResource(country.img)
         holder.checkBox.isChecked = country.isChecked
+
         holder.content.setOnClickListener {
-            listener.onItemClick(country)
+            /**
+             * Change check box state according to the on item click event
+             */
             if (country.isChecked) {
                 country.isChecked = false
                 holder.checkBox.isChecked = false
@@ -35,6 +38,12 @@ internal class CountryAdapter(
                 country.isChecked = true
                 holder.checkBox.isChecked = true
             }
+
+            /**
+             * Call on click event
+             */
+            listener.onItemClick(country)
+
         }
     }
 
@@ -43,6 +52,9 @@ internal class CountryAdapter(
         return countryList.size
     }
 
+    /**
+     * On Item Click Listener
+     */
     interface OnItemClickListener {
         fun onItemClick(county: Country)
     }
