@@ -16,20 +16,24 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
         setCountryData()
         setAdapter()
     }
 
-    //Create Adapter and set to the Recycle View
+
     private fun setAdapter() {
-        //Initiated OnItem Click Listener
+        /**
+         * Initiated OnItem Click Listener
+         */
         val listener = object : CountryAdapter.OnItemClickListener {
             override fun onItemClick(county: Country) {
                 Toast.makeText(applicationContext, county.name, Toast.LENGTH_SHORT).show()
             }
         }
 
+        /**
+         * Create Adapter and set to the Recycle View
+         */
         countryAdapter = CountryAdapter(countryList, listener)
         val layoutManager = LinearLayoutManager(applicationContext)
         dataBinding.recycleView.layoutManager = layoutManager
@@ -38,7 +42,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    //Set Country Details
+    /**
+     * Set Country Details
+     */
     private fun setCountryData() {
         countryList = listOf(
             Country(R.mipmap.argentina, "Argentina", false),
