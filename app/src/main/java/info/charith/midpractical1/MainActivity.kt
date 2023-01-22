@@ -1,6 +1,7 @@
 package info.charith.midpractical1
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,8 +9,9 @@ import info.charith.midpractical1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var dataBinding: ActivityMainBinding
-    lateinit var countryList: List<Country>
+    private lateinit var dataBinding: ActivityMainBinding
+    private lateinit var countryList: List<Country>
+    private lateinit var countryAdapter: CountryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,10 +23,19 @@ class MainActivity : AppCompatActivity() {
 
     //Create Adapter and set to the Recycle View
     private fun setAdapter() {
-        val countryAdapter = CountryAdapter(countryList)
+        //Initiated OnItem Click Listener
+        val listener = object : CountryAdapter.OnItemClickListener {
+            override fun onItemClick(county: Country) {
+                Toast.makeText(applicationContext, county.name, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        countryAdapter = CountryAdapter(countryList, listener)
         val layoutManager = LinearLayoutManager(applicationContext)
         dataBinding.recycleView.layoutManager = layoutManager
         dataBinding.recycleView.adapter = countryAdapter
+
+
     }
 
     //Set Country Details
