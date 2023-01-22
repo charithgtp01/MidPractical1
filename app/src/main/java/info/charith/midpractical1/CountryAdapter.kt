@@ -6,9 +6,13 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 
-internal class CountryAdapter(var countryList: List<Country>) :
+internal class CountryAdapter(
+    var countryList: List<Country>,
+    private var listener: OnItemClickListener
+) :
     RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,17 +25,33 @@ internal class CountryAdapter(var countryList: List<Country>) :
         val country = countryList[position]
         holder.tvName.text = country.name
         holder.icon.setImageResource(country.img)
-//        holder.checkBox.isChecked = country.isChecked
+        holder.checkBox.isChecked = country.isChecked
+        holder.content.setOnClickListener {
+            listener.onItemClick(country)
+            if (country.isChecked) {
+                country.isChecked = false
+                holder.checkBox.isChecked = false
+            } else {
+                country.isChecked = true
+                holder.checkBox.isChecked = true
+            }
+        }
     }
+
 
     override fun getItemCount(): Int {
         return countryList.size
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(county: Country)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvName = itemView.findViewById<TextView>(R.id.tvName)!!
         val icon = itemView.findViewById<ImageView>(R.id.icon)!!
         val checkBox = itemView.findViewById<CheckBox>(R.id.checkBox)!!
+        val content = itemView.findViewById<ConstraintLayout>(R.id.contentLayout)!!
     }
 
 }
